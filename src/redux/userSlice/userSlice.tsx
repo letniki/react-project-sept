@@ -12,7 +12,7 @@ const loadUsers = createAsyncThunk(
     'userSlice/loadUsers',
     async (_, thunkAPI)=>{
         try {
-            const {users} = await loadAuthUsers().then(value => value);
+            const users = await loadAuthUsers().then(value => value);
             console.log(users);
             return thunkAPI.fulfillWithValue(users);
         } catch (e){
