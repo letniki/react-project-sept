@@ -5,10 +5,7 @@ import {IRecipesResponseModelType} from "../models/IRecipesResponseModelType.ts"
 import {retriveLocalStorage} from "./helpers.ts";
 import {ITokenPair} from "../models/ITokenPair.ts";
 import {LoginDataType} from "../models/LoginDataType.ts";
-import {IUser} from "../models/IUser.ts";
 import {IUsersResponseModelType} from "../models/IUsersResponseModelType.ts";
-
-
 
 
 const axiosInstance = axios.create({
@@ -31,8 +28,8 @@ export const loadAuthRecipes = async (): Promise<IRecipe[]> =>{
     const {data: {recipes}} = await axiosInstance.get<IRecipesResponseModelType>('/recipes');
     return recipes;
 }
-export const loadAuthUsers = async (): Promise<IUser[]> =>{
-    const {data: users} = await axiosInstance.get<IUsersResponseModelType[]>('/users');
+export const loadAuthUsers = async (): Promise<IUsersResponseModelType[]> =>{
+    const {data:users} = await axiosInstance.get<IUsersResponseModelType[]>('/users');
     console.log(users);
     return users;
 }

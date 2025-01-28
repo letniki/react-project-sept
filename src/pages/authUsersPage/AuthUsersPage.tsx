@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import {userSliceActions} from "../../redux/userSlice/userSlice.tsx";
 
 export const AuthUsersPage = () => {
-    const {users} = useAppSelector(({userSlice}) => userSlice);
+    const users = useAppSelector(({userSlice}) => userSlice);
 
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -14,7 +14,7 @@ export const AuthUsersPage = () => {
     return (
         <div>
             {
-                users.map(user=><div key={user.id}>{user.id}</div>)
+                users.users.map(user=><div key={user.id}>{JSON.stringify(user)}</div>)
             }
         </div>
     );
