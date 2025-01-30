@@ -5,6 +5,7 @@ import {AuthUsersPage} from "../pages/authUsersPage/AuthUsersPage.tsx";
 import {AuthRecipesPage} from "../pages/authRecipesPage/AuthRecipesPage.tsx";
 import {UserComponent} from "../components/user/UserComponent.tsx";
 import {RecipeCard} from "../components/recipeCard/RecipeCard.tsx";
+import {RecipesByTagComponent} from "../components/recipesByTag/RecipesByTagComponent.tsx";
 
 export const routes = createBrowserRouter([
     {path:'', element:<MainLayout/>, children:[
@@ -13,5 +14,6 @@ export const routes = createBrowserRouter([
             {path:'/auth/users/:id', element:<UserComponent/>},
             {path:'/auth/recipes', element:<AuthRecipesPage/>},
             {path:'/auth/recipes/:id', element:<RecipeCard/>},
+            {path:'/auth/recipes/tag/:tag', element:<RecipesByTagComponent/>}
         ]
     }]);

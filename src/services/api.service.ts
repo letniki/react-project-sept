@@ -61,7 +61,7 @@ export const loadAuthRecipe =async (id: string):Promise<IRecipe> =>{
     return data;
 }
 
-export const refresh = async (refresh: string)=>{
+export const refresh = async (refresh: string): Promise<ITokenPair>=>{
     const iUserWithTokens = retriveLocalStorage<IUserWithTokens>('user');
     const {data: {accessToken, refreshToken}} = await axiosInstance.post<ITokenPair>('/refresh',{
         refreshToken: refresh,
@@ -71,6 +71,8 @@ export const refresh = async (refresh: string)=>{
     iUserWithTokens.refreshToken = refreshToken;
     localStorage.setItem('user', JSON.stringify(iUserWithTokens));
     return iUserWithTokens;
-    // console.log('hello asd')
-
+}
+export const getRecipesByTag = async (tag: string): Promise<IRecipe[]> =>{
+    const {data: {recipes}} = await axiosInstance.get<IRecipesResponseModelType>('/recipes/tag/' + tag);
+    return recipes;
 }
