@@ -13,6 +13,8 @@ const axiosInstance = axios.create({
     baseURL: 'https://dummyjson.com/auth',
     headers: {}
 });
+// const filteredRecipes = 'https://dummyjson.com/recipes/1?select=userId';
+
 axiosInstance.interceptors.request.use((requestObject)=>{
     if(requestObject.method?.toUpperCase() === 'GET'){
         requestObject.headers.Authorization = 'Bearer ' + retriveLocalStorage<IUserWithTokens>('user').accessToken;
@@ -22,12 +24,22 @@ axiosInstance.interceptors.request.use((requestObject)=>{
 export const login = async ({username, password, expiresInMins}:LoginDataType): Promise<IUserWithTokens> =>{
     const {data: userWithTokens} = await axiosInstance.post<IUserWithTokens>('/login', {username, password, expiresInMins});
     console.log(userWithTokens);
-    // localStorage.setItem('user', JSON.stringify(userWithTokens));
+    localStorage.setItem('user', JSON.stringify(userWithTokens));
     return userWithTokens;
 }
-export const loadAuthRecipes = async (): Promise<IRecipe[]> =>{
-    const {data: {recipes}} = await axiosInstance.get<IRecipesResponseModelType>('/recipes');
+export const loadAuthRecipes = async (page: string): Promise<IRecipe[]> =>{
+    if(+page<0){
+        const {data: {recipes}} = await axiosInstance.get<IRecipesResponseModelType>('/recipes' + '?limit' + 10);
+        return recipes;
+    }
+    const limit: number = 10;
+    const skip: number = limit * (+page) - limit;
+    const {data:{recipes}} = await axiosInstance.get('/recipes' + '?limit=' + limit + '&skip=' + skip );
     return recipes;
+}
+export const loadAllAuthRecipes = async (): Promise<IRecipe[]> =>{
+        const {data: {recipes}} = await axiosInstance.get<IRecipesResponseModelType>('/recipes' + '?limit' + 50);
+        return recipes;
 }
 export const loadAuthUsers = async (page: string): Promise<IUser[]> =>{
     if(+page<0){
@@ -44,15 +56,21 @@ export const loadAuthUser =async (id: string):Promise<IUser> =>{
     console.log(data);
     return data;
 }
+export const loadAuthRecipe =async (id: string):Promise<IRecipe> =>{
+    const {data} = await axiosInstance.get<IRecipe>(`/recipes/${id}`);
+    return data;
+}
 
-export const refresh = async ()=>{
+export const refresh = async (refresh: string)=>{
     const iUserWithTokens = retriveLocalStorage<IUserWithTokens>('user');
     const {data: {accessToken, refreshToken}} = await axiosInstance.post<ITokenPair>('/refresh',{
-        refreshToken: iUserWithTokens.refreshToken,
-        expiresInMins: 1
+        refreshToken: refresh,
+        expiresInMins: 10
     });
-    console.log('hello asd')
     iUserWithTokens.accessToken = accessToken;
     iUserWithTokens.refreshToken = refreshToken;
     localStorage.setItem('user', JSON.stringify(iUserWithTokens));
+    return iUserWithTokens;
+    // console.log('hello asd')
+
 }

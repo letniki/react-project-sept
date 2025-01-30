@@ -6,7 +6,7 @@ export const AuthUsersPage = () => {
     return (
         <>
             <UsersComponent/>
-            <PaginationComponent/>
+            <PaginationComponent lastPage={7}/>
         </>
     );
 };

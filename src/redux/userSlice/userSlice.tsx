@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {loadAuthUser, loadAuthUsers, refresh} from "../../services/api.service.ts";
+import {loadAuthUser, loadAuthUsers} from "../../services/api.service.ts";
 import {IUser} from "../../models/IUser.ts";
 
 type UserSliceType = {
@@ -16,16 +16,11 @@ const loadUsers = createAsyncThunk(
     'userSlice/loadUsers',
     async (page:string, thunkAPI)=>{
         try {
-            const users = await loadAuthUsers(page).then(value => value);
+            const users = await loadAuthUsers(page);
             console.log(users);
             return thunkAPI.fulfillWithValue(users);
         } catch (e){
-            console.log('ahhahahha')
-            await refresh()
-                .then(()=>loadAuthUsers(page)
-                    .then(value =>{
-                        return thunkAPI.fulfillWithValue(value)
-                    }))
+            console.log(e)
             return thunkAPI.rejectWithValue(e);
         }
     }
@@ -34,7 +29,7 @@ const loadUser = createAsyncThunk(
     'userSlice/loadUser',
     async (id: string, thunkAPI)=>{
         try {
-            const user = await loadAuthUser(id).then(value=>value);
+            const user = await loadAuthUser(id);
             return thunkAPI.fulfillWithValue(user);
         }catch (e){
             console.log(e);

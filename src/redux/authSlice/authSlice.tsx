@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {login} from "../../services/api.service.ts";
+import {login, refresh} from "../../services/api.service.ts";
 import {ITokenPair} from "../../models/ITokenPair.ts";
 
 type UserSliceType = {
@@ -25,6 +25,20 @@ const logIn = createAsyncThunk(
         }
     }
 )
+const refreshTokens = createAsyncThunk(
+    'authSlice/refreshTokens',
+    async (refreshToken: string , thunkAPI)=>{
+        try {
+            const data = await refresh(refreshToken);
+            console.log(data);
+            return thunkAPI.fulfillWithValue(data);
+        } catch (error) {
+            console.log(error)
+            return thunkAPI.rejectWithValue("Ошибка авторизации");
+        }
+    }
+)
+
 export const authSlice = createSlice({
     name: "authSlice",
     initialState: initialState,
@@ -33,8 +47,11 @@ export const authSlice = createSlice({
         builder.addCase(logIn.fulfilled, (state, action: PayloadAction<ITokenPair>)=>{
             state.accessToken = action.payload.accessToken;
             state.refreshToken = action.payload.refreshToken;
+        }).addCase(refreshTokens.fulfilled, (state, action: PayloadAction<ITokenPair>)=>{
+            state.accessToken = action.payload.accessToken;
+            state.refreshToken = action.payload.refreshToken;
         }),
 });
 export const authSliceActions ={
-    ...authSlice.actions, logIn
+    ...authSlice.actions, logIn, refreshTokens
 }

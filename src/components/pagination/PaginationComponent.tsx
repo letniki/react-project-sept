@@ -1,6 +1,10 @@
 import {useSearchParams} from "react-router-dom";
 
-export const PaginationComponent = () => {
+type PaginationComponentType ={
+    lastPage: number;
+}
+
+export const PaginationComponent = ({lastPage}: PaginationComponentType) => {
     const [searchParams, setSearchParams] = useSearchParams({page:'1'});
     let currentPage = Number(searchParams.get('page') || '1');
     return (
@@ -11,7 +15,7 @@ export const PaginationComponent = () => {
                     }
                 }}>prev
                 </button>
-                <button disabled={currentPage >= 7} onClick={() => {
+                <button disabled={currentPage >= lastPage} onClick={() => {
                     setSearchParams({page: (++currentPage).toString()})
                 }}>next
                 </button>
