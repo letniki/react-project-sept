@@ -14,7 +14,6 @@ export const UserComponent = () => {
     const dispatch = useAppDispatch();
     const {recipes} = useAppSelector(({recipeSlice}) => recipeSlice);
     useEffect(() => {
-
         if(id){
             dispatch(userSliceActions.loadUser(id));
             dispatch(recipeSliceActions.loadAllRecipes());

@@ -50,6 +50,7 @@ export const authSlice = createSlice({
         }).addCase(refreshTokens.fulfilled, (state, action: PayloadAction<ITokenPair>)=>{
             state.accessToken = action.payload.accessToken;
             state.refreshToken = action.payload.refreshToken;
+            console.log(state.accessToken);
         }),
 });
 export const authSliceActions ={

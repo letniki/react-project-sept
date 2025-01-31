@@ -1,10 +1,13 @@
 import {useEffect} from "react";
-import {useAppSelector} from "../../../redux/hooks/useAppelector.tsx";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
 import {authSliceActions} from "../../../redux/authSlice/authSlice.tsx";
+import {retriveLocalStorage} from "../../../services/helpers.ts";
+import {IUserWithTokens} from "../../../models/IUserWithTokens.ts";
 
 export const RefreshComponent = () => {
-    const {refreshToken} = useAppSelector(({authSlice}) => authSlice);
+    // const {refreshToken} = useAppSelector(({authSlice}) => authSlice);
+    const {refreshToken} = retriveLocalStorage<IUserWithTokens>('user');
+    console.log(refreshToken);
     const dispatch = useAppDispatch();
     useEffect(() => {
         const interval = setInterval(() => {

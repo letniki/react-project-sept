@@ -13,10 +13,10 @@ export const SearchComponent = () => {
     const query = watch("query");
 
     const handler = ({query}:{query : string})=> {
-const trimmedQuery = query.trim();
-if(trimmedQuery){
-    dispatch(userSliceActions.searchUsers(trimmedQuery));
-}
+        const trimmedQuery = query.trim();
+        if(trimmedQuery.length > 1 || !isNaN(Number(trimmedQuery))){
+            dispatch(userSliceActions.searchUsers(trimmedQuery));
+        }
     }
     // useEffect(() => {
     //     dispatch(userSliceActions.searchUsers(query.trim()));

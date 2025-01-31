@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 
 export const Menu = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const refreshToken = useAppSelector(({authSlice})=>authSlice.refreshToken);
+    const accessToken = useAppSelector(({authSlice})=>authSlice.accessToken);
     const user = localStorage.getItem('user');
     useEffect(() => {
         if (user) {
@@ -12,13 +12,13 @@ export const Menu = () => {
         } else {
             setIsAuthenticated(false);
         }
-    }, [user, refreshToken]);
+    }, [user, accessToken]);
     return (
         <>
             {
                 (isAuthenticated) ? (<ul>
 
-                    {(user && refreshToken) ? (<img src={JSON.parse(user).image} alt={JSON.parse(user).username}/>) : (<li><Link to={'/login'}>login</Link></li>)}
+                    {user ? (<img src={JSON.parse(user).image} alt={JSON.parse(user).username}/>) : (<li><Link to={'/login'}>login</Link></li>)}
                     <li><Link to={'/auth/users'}>users</Link></li>
                     <li><Link to={'/auth/recipes'}>recipes</Link></li>
                 </ul>) : (<><div>Вам потрібно аутентифікуватись. Перейдіть за посиланням
@@ -26,10 +26,6 @@ export const Menu = () => {
                            <li><Link to={'/login'}>login</Link></li>
                        </ul></div></>)
             }
-            {/*{*/}
-            {/*    (!user && !refreshToken) && */}
-            {/*}*/}
-
         </>
     );
 };

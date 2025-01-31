@@ -29,7 +29,7 @@ export const login = async ({username, password, expiresInMins}:LoginDataType): 
 }
 export const loadAuthRecipes = async (page: string): Promise<IRecipe[]> =>{
     if(+page<0){
-        const {data: {recipes}} = await axiosInstance.get<IRecipesResponseModelType>('/recipes' + '?limit' + 10);
+        const {data: {recipes}} = await axiosInstance.get<IRecipesResponseModelType>('/recipes' + '?limit=' + 10);
         return recipes;
     }
     const limit: number = 10;
@@ -38,7 +38,7 @@ export const loadAuthRecipes = async (page: string): Promise<IRecipe[]> =>{
     return recipes;
 }
 export const loadAllAuthRecipes = async (): Promise<IRecipe[]> =>{
-        const {data: {recipes}} = await axiosInstance.get<IRecipesResponseModelType>('/recipes' + '?limit' + 50);
+        const {data: {recipes}} = await axiosInstance.get<IRecipesResponseModelType>('/recipes' + '?limit=' + 50);
         return recipes;
 }
 export const loadAuthUsers = async (page: string): Promise<IUser[]> =>{
@@ -81,7 +81,7 @@ export const searchUsersByIdOrName = async (query: string): Promise<IUser[]>=>{
     if(!isNaN(Number(query))  && (Number(query) > 0) && (Number(query) < 208)){
         const user = await loadAuthUser(query);
         return [user];
-    } else{
+    } else {
         const {data: {users}}  = await axiosInstance.get<IUsersResponseModelType>(`/users/search?q=${query}`);
         return users;
     }
