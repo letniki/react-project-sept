@@ -3,6 +3,7 @@ import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {useEffect} from "react";
 import {userSliceActions} from "../../redux/userSlice/userSlice.tsx";
 import {Link, useSearchParams} from "react-router-dom";
+import {SearchComponent} from "../search/SearchComponent.tsx";
 
 export const UsersComponent = () => {
     const {users} = useAppSelector(({userSlice}) => userSlice);
@@ -12,9 +13,10 @@ export const UsersComponent = () => {
     useEffect(() => {
         const currentPage = searchParams.get('page') || '1';
         dispatch(userSliceActions.loadUsers(currentPage));
-    }, [searchParams]);
+    },[searchParams]);
     return (
         <div>
+            <SearchComponent/>
             {
                 users.map(user=><Link key={user.id} to={`${user.id}`}>
                     <h2>{user.id}. {user.firstName} {user.lastName}</h2>

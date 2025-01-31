@@ -10,12 +10,11 @@ export const RecipesByTagComponent = () => {
     const { tag } = useParams();
     const dispatch = useAppDispatch();
     useEffect(() => {
-        // const tag = window.location.pathname.split("/").pop();
         console.log(tag);
         if(tag){
             dispatch(recipeSliceActions.loadRecipesByTag(tag))
         }
-    }, [ tag]);
+    }, [tag]);
     return (
         <div>
             {recipesByTag.map(recipe=><RecipeComponent key={recipe.id} recipe={recipe}/>)}

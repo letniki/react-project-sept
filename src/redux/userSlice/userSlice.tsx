@@ -1,15 +1,17 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {loadAuthUser, loadAuthUsers} from "../../services/api.service.ts";
+import {loadAuthUser, loadAuthUsers, searchUsersByIdOrName} from "../../services/api.service.ts";
 import {IUser} from "../../models/IUser.ts";
 
 type UserSliceType = {
     users:IUser[];
     user: IUser | null;
+    searchedUsers: IUser[];
 }
 
 const initialState: UserSliceType = {
     users:[],
-    user: null
+    user: null,
+    searchedUsers:[]
 };
 
 const loadUsers = createAsyncThunk(
@@ -37,6 +39,19 @@ const loadUser = createAsyncThunk(
         }
     }
 )
+const searchUsers = createAsyncThunk(
+    'userSlice/searchUsers',
+    async (query:string, thunkAPI)=>{
+        try {
+            const users = await searchUsersByIdOrName(query);
+            console.log(users);
+            return thunkAPI.fulfillWithValue(users);
+        } catch (e){
+            console.log(e)
+            return thunkAPI.rejectWithValue(e);
+        }
+    }
+)
 
 
 export const userSlice = createSlice({
@@ -44,14 +59,20 @@ export const userSlice = createSlice({
     initialState: initialState,
     reducers:{},
     extraReducers:builder =>
-        builder.addCase(loadUsers.fulfilled, (state, action:PayloadAction<IUser[]>)=>{
+        builder
+            .addCase(loadUsers.fulfilled, (state, action:PayloadAction<IUser[]>)=>{
             state.users = action.payload;
             console.log(action.payload);
-        }).addCase(loadUser.fulfilled, (state, action:PayloadAction<IUser>)=>{
+        })
+            .addCase(loadUser.fulfilled, (state, action:PayloadAction<IUser>)=>{
             state.user = action.payload;
             console.log(action.payload);
         })
+            .addCase(searchUsers.fulfilled, (state, action:PayloadAction<IUser[]>)=>{
+                state.searchedUsers = action.payload;
+                console.log(action.payload);
+            })
 })
 export const userSliceActions ={
-    ...userSlice.actions, loadUsers, loadUser
+    ...userSlice.actions, loadUsers, loadUser, searchUsers
 }

@@ -7,17 +7,17 @@ export const Menu = () => {
     return (
         <>
             {
-               user && refreshToken ? <ul>
+                (user && refreshToken) ? (<ul>
 
                     {user && <img src={JSON.parse(user).image} alt={JSON.parse(user).username}/>}
                     <li><Link to={'/auth/users'}>users</Link></li>
                     <li><Link to={'/auth/recipes'}>recipes</Link></li>
-                </ul> : <>
+                </ul>) : (<>
                    <div>Вам потрібно аутентифікуватись. Перейдіть за посиланням
                        <ul>
                            <li><Link to={'/login'}>login</Link></li>
                        </ul></div>
-               </>
+               </>)
             }
             {/*{*/}
             {/*    (!user && !refreshToken) && */}

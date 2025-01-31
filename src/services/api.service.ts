@@ -76,3 +76,13 @@ export const getRecipesByTag = async (tag: string): Promise<IRecipe[]> =>{
     const {data: {recipes}} = await axiosInstance.get<IRecipesResponseModelType>('/recipes/tag/' + tag);
     return recipes;
 }
+
+export const searchUsersByIdOrName = async (query: string): Promise<IUser[]>=>{
+    if(!isNaN(Number(query))  && (Number(query) > 0) && (Number(query) < 208)){
+        const user = await loadAuthUser(query);
+        return [user];
+    } else{
+        const {data: {users}}  = await axiosInstance.get<IUsersResponseModelType>(`/users/search?q=${query}`);
+        return users;
+    }
+}
