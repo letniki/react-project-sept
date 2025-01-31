@@ -8,21 +8,21 @@ import {authSliceActions} from "../../../redux/authSlice/authSlice.tsx";
 
 export const LoginComponent = () => {
     const navigate = useNavigate();
-    const refreshToken = useAppSelector(({authSlice}) => authSlice.refreshToken);
+    const accessToken = useAppSelector(({authSlice}) => authSlice.accessToken);
     const dispatch = useAppDispatch();
     const {register, handleSubmit} = useForm<LoginDataType>();
-    const handler = ({username, password}:LoginDataType)=> {
-        dispatch(authSliceActions.logIn({ username, password, expiresInMins: 1 }));
+    const handler = async({username, password}:LoginDataType)=> {
+        await dispatch(authSliceActions.logIn({ username, password, expiresInMins: 1 }));
     }
 
     useEffect(() => {
-        if(refreshToken){
+        if(accessToken){
             navigate('/auth/users');
             // window.location.reload();
             // navigate(1);
         }
 
-    }, [refreshToken]);
+    }, [accessToken]);
     return (
         <>
             <div>Заповніть  форму</div>

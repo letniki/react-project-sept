@@ -1,17 +1,25 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getRecipesByTag, loadAllAuthRecipes, loadAuthRecipe, loadAuthRecipes} from "../../services/api.service.ts";
+import {
+    getRecipesByTag,
+    loadAllAuthRecipes,
+    loadAuthRecipe,
+    loadAuthRecipes,
+    searchRecipesByIdOrQuery
+} from "../../services/api.service.ts";
 import {IRecipe} from "../../models/IRecipe.ts";
 
 type RecipeSliceType = {
     recipes:IRecipe[];
     recipe: IRecipe | null;
     recipesByTag: IRecipe[];
+    searchedRecipes: IRecipe[];
 }
 
 const initialState: RecipeSliceType = {
     recipes:[],
     recipe: null,
-    recipesByTag: []
+    recipesByTag: [],
+    searchedRecipes: []
 };
 
 const loadPaginatedRecipes = createAsyncThunk(
@@ -66,6 +74,19 @@ const loadRecipesByTag = createAsyncThunk(
     }
 
 );
+const searchRecipes = createAsyncThunk(
+    'recipeSlice/searchRecipes',
+    async (query:string, thunkAPI)=>{
+        try {
+            const recipes = await searchRecipesByIdOrQuery(query);
+            console.log(recipes);
+            return thunkAPI.fulfillWithValue(recipes);
+        } catch (e){
+            console.log(e)
+            return thunkAPI.rejectWithValue(e);
+        }
+    }
+)
 export const recipeSlice = createSlice({
     name: "recipeSlice",
     initialState: initialState,
@@ -87,7 +108,11 @@ export const recipeSlice = createSlice({
             state.recipesByTag = action.payload;
             console.log(action.payload);
         })
+        .addCase(searchRecipes.fulfilled, (state, action:PayloadAction<IRecipe[]>)=>{
+            state.searchedRecipes = action.payload;
+            console.log(action.payload);
+        })
 })
 export const recipeSliceActions ={
-    ...recipeSlice.actions, loadPaginatedRecipes, loadRecipe, loadAllRecipes, loadRecipesByTag
+    ...recipeSlice.actions, loadPaginatedRecipes, loadRecipe, loadAllRecipes, loadRecipesByTag, searchRecipes
 }

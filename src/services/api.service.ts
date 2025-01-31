@@ -86,3 +86,12 @@ export const searchUsersByIdOrName = async (query: string): Promise<IUser[]>=>{
         return users;
     }
 }
+export const searchRecipesByIdOrQuery = async (query: string): Promise<IRecipe[]>=>{
+    if(!isNaN(Number(query))  && (Number(query) > 0) && (Number(query) < 50)){
+        const recipe = await loadAuthRecipe(query);
+        return [recipe];
+    } else{
+        const {data: {recipes}}  = await axiosInstance.get<IRecipesResponseModelType>(`/recipe/search?q=${query}`);
+        return recipes;
+    }
+}
