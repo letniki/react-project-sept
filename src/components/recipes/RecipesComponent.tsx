@@ -5,6 +5,7 @@ import {useEffect} from "react";
 import {recipeSliceActions} from "../../redux/recipeSlice/recipeSlice.tsx";
 import {RecipeComponent} from "../recipe/RecipeComponent.tsx";
 import './RecipesComponent.css'
+
 export const RecipesComponent = () => {
     const {recipes} = useAppSelector(({recipeSlice})=>recipeSlice);
     const [searchParams] = useSearchParams({page:'1'});

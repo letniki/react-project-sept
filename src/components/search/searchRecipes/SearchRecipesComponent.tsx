@@ -5,7 +5,7 @@ import {RecipeComponent} from "../../recipe/RecipeComponent.tsx";
 import {recipeSliceActions} from "../../../redux/recipeSlice/recipeSlice.tsx";
 
 
-export const SearchRecipeComponent = () => {
+export const SearchRecipesComponent = () => {
     const {searchedRecipes} = useAppSelector(({recipeSlice})=>recipeSlice);
     const dispatch = useAppDispatch();
     const {register, handleSubmit, watch} = useForm<{query:string}>();

@@ -78,7 +78,7 @@ export const getRecipesByTag = async (tag: string): Promise<IRecipe[]> =>{
 }
 
 export const searchUsersByIdOrName = async (query: string): Promise<IUser[]>=>{
-    if(!isNaN(Number(query))  && (Number(query) > 0) && (Number(query) < 208)){
+    if(!isNaN(Number(query))  && (Number(query) > 0) && (Number(query) <= 208)){
         const user = await loadAuthUser(query);
         return [user];
     } else {
@@ -87,7 +87,7 @@ export const searchUsersByIdOrName = async (query: string): Promise<IUser[]>=>{
     }
 }
 export const searchRecipesByIdOrQuery = async (query: string): Promise<IRecipe[]>=>{
-    if(!isNaN(Number(query))  && (Number(query) > 0) && (Number(query) < 50)){
+    if(!isNaN(Number(query))  && (Number(query) > 0) && (Number(query) <= 50)){
         const recipe = await loadAuthRecipe(query);
         return [recipe];
     } else{

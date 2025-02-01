@@ -16,7 +16,7 @@ export const RecipesByTagComponent = () => {
         }
     }, [tag]);
     return (
-        <div>
+        <div className='recipesBox'>
             {recipesByTag.map(recipe=><RecipeComponent key={recipe.id} recipe={recipe}/>)}
         </div>
     );
