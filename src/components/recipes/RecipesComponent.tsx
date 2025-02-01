@@ -4,7 +4,7 @@ import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {useEffect} from "react";
 import {recipeSliceActions} from "../../redux/recipeSlice/recipeSlice.tsx";
 import {RecipeComponent} from "../recipe/RecipeComponent.tsx";
-
+import './RecipesComponent.css'
 export const RecipesComponent = () => {
     const {recipes} = useAppSelector(({recipeSlice})=>recipeSlice);
     const [searchParams] = useSearchParams({page:'1'});
@@ -14,7 +14,7 @@ export const RecipesComponent = () => {
         dispatch(recipeSliceActions.loadPaginatedRecipes(currentPage));
     }, [searchParams]);
     return (
-        <div>
+        <div className='recipesBox'>
             {
               recipes.map(recipe=><RecipeComponent key={recipe.id} recipe={recipe}/>)
             }

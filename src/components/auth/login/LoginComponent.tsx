@@ -2,17 +2,18 @@ import {LoginDataType} from "../../../models/LoginDataType.ts";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
-import {useAppSelector} from "../../../redux/hooks/useAppelector.tsx";
-import {useEffect} from "react";
 import {authSliceActions} from "../../../redux/authSlice/authSlice.tsx";
-
+import {useEffect} from "react";
+import {useAppSelector} from "../../../redux/hooks/useAppelector.tsx";
+import './LoginComponent.css';
 export const LoginComponent = () => {
     const navigate = useNavigate();
     const accessToken = useAppSelector(({authSlice}) => authSlice.accessToken);
+    // const {accessToken} = retriveLocalStorage<IUserWithTokens>('user');
     const dispatch = useAppDispatch();
     const {register, handleSubmit} = useForm<LoginDataType>();
     const handler = async({username, password}:LoginDataType)=> {
-        await dispatch(authSliceActions.logIn({ username, password, expiresInMins: 1 }));
+        await dispatch(authSliceActions.logIn({ username, password, expiresInMins: 10 }));
     }
 
     useEffect(() => {
@@ -21,21 +22,20 @@ export const LoginComponent = () => {
             // window.location.reload();
             // navigate(1);
         }
-
     }, [accessToken]);
     return (
-        <>
-            <div>Заповніть  форму</div>
-            <form onSubmit={handleSubmit(handler)}>
-                <div>
-                    username: <input type="text" {...register('username')}/>
+        <div className='div'>
+            <div className='text'>Заповніть  форму</div>
+            <form className='loginForm' onSubmit={handleSubmit(handler)}>
+                <div className='text'>
+                    <input className='input' type="text" placeholder='username' {...register('username', {required: "Field cannot be empty"})}/>
                 </div>
-                <div>
-                    password: <input type="text" {...register('password')}/>
+                <div className='text'>
+                    <input className='input' placeholder='password' type="text" {...register('password', {required: "Field cannot be empty"})}/>
                 </div>
-                <button type='submit'>login</button>
+                <button className='button' type='submit'>login</button>
             </form>
-        </>
+        </div>
     );
 };
 

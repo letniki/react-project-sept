@@ -5,8 +5,8 @@ import {retriveLocalStorage} from "../../../services/helpers.ts";
 import {IUserWithTokens} from "../../../models/IUserWithTokens.ts";
 
 export const RefreshComponent = () => {
-    // const {refreshToken} = useAppSelector(({authSlice}) => authSlice);
-    const {refreshToken} = retriveLocalStorage<IUserWithTokens>('user');
+    // const {accessToken, refreshToken} = useAppSelector(({authSlice}) => authSlice);
+    const {accessToken, refreshToken} = retriveLocalStorage<IUserWithTokens>('user');
     console.log(refreshToken);
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -16,9 +16,8 @@ export const RefreshComponent = () => {
                 dispatch(authSliceActions.refreshTokens(refreshToken));
             }
         }, 30000);
-
         return () => clearInterval(interval);
-    }, [refreshToken]);
+    }, [accessToken, refreshToken]);
     return (
         <div>
 

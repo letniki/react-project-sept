@@ -5,7 +5,7 @@ import {useEffect} from "react";
 import {userSliceActions} from "../../redux/userSlice/userSlice.tsx";
 import {recipeSliceActions} from "../../redux/recipeSlice/recipeSlice.tsx";
 import {RecipeComponent} from "../recipe/RecipeComponent.tsx";
-
+import './UserComponent.css'
 
 export const UserComponent = () => {
     const {id} = useParams();
@@ -22,9 +22,26 @@ export const UserComponent = () => {
     return (
         <div>
             <button onClick={() => navigate(-1)}>Назад</button>
-            {user && <div>{user.username}</div>}
+            <div className='box'>
+            {user && (<div>
+                    <h2>{user.id}. {user.firstName} {user.lastName}</h2>
+                    <h3>Username: {user.username}</h3>
+                    <div>Email: {user.email}</div>
+                    <div>Phone: {user.phone}</div>
+                    <div>Eye color: {user.eyeColor} </div>
+                    <div> Hair color: {user.hair.color} - Hair type: {user.hair.type} </div>
+                    <p>Age: {user.age}</p>
+                    <p>Height: {user.height} Weight: {user.weight}</p>
+                    <div>Birth date: {user.birthDate}</div>
+                    <div>Blood group: {user.bloodGroup}</div>
 
-            {id && recipes.map(recipe => (recipe.userId === +id ? (<RecipeComponent key={recipe.id} recipe={recipe} />) : null))}
+
+                </div>
+
+            )
+            }
+
+            {id && recipes.map(recipe => (recipe.userId === +id ? (<RecipeComponent key={recipe.id} recipe={recipe} />) : (<></>)))}</div>
         </div>
     );
 };
