@@ -8,7 +8,7 @@ export const AuthUsersPage = () => {
         <><SearchUsersComponent/>
             <h2 className='text'>All Users</h2>
             <UsersComponent/>
-            <PaginationComponent lastPage={7}/>
+            <PaginationComponent lastPage={13}/>
         </>
     );
 };

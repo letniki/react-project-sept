@@ -1,3 +1,26 @@
 .image{
-    width: 250px;
+    width: 20vw;
+}
+.recipeCard{
+    display: flex;
+    width: 100vw;
+    color: darkblue;
+    /*justify-items: center;*/
+}
+.recipeCardBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40vw;
+}
+.userCardLink{
+    text-decoration: none;
+    width: 10vw;
+    margin: 1vw;
+    display: flex;
+    /*color: red;*/
+}
+.userCardLink:hover{
+    color: ghostwhite;
+    transition: 0.7s;
 }

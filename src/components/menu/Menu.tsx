@@ -7,10 +7,10 @@ export const Menu = () => {
     const {accessToken, refreshToken} = useAppSelector(({authSlice})=>authSlice);
     const user = localStorage.getItem('user');
     useEffect(() => {
-        if (user) {
-            setIsAuthenticated(true);
-        } else {
+        if (!user && !accessToken) {
             setIsAuthenticated(false);
+        } else {
+            setIsAuthenticated(true);
         }
     }, [user, accessToken, refreshToken]);
     return (
@@ -23,11 +23,9 @@ export const Menu = () => {
                     {user ? (<img className='img' src={JSON.parse(user).image} alt={JSON.parse(user).username}/>) : (
                         <li><Link to={'/login'}>login</Link></li>)}
                 </ul>) : (<>
-                    {/*<div>Вам потрібно аутентифікуватись. Перейдіть за посиланням*/}
                     <ul className='block'>
                            <li className='Link'><Link className='Link' to={'/login'}>login</Link></li>
                        </ul>
-            {/*</div>*/}
                 </>)
             }
         </>

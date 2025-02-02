@@ -41,7 +41,7 @@ input::placeholder{
     background-color: cornflowerblue;
     height: 2vh;
     margin-top: 0;
-    padding:20px;
+    padding:10px;
     display: flex;
     justify-items: center;
     align-items: center;

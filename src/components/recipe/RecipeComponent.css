@@ -15,8 +15,7 @@
  }
 .recipeBox{
     display: flex;
-    /*height: 50%;*/
-    width: 19vw;
+    width: 18vw;
     border: #002ead solid 2px;
     flex-direction: column;
     align-items: center;
