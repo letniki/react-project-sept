@@ -19,7 +19,6 @@ export const UserCardComponent = () => {
         }
     }, [id]);
     return (
-        <div>
             <div className='box'>
             {user && (<div>
                     <h1 >{user.id}. {user.firstName} {user.lastName}</h1>
@@ -32,17 +31,11 @@ export const UserCardComponent = () => {
                     <p>Blood group: {user.bloodGroup}</p>
                     <p>Eye color: {user.eyeColor}</p>
                     <p> Hair color: {user.hair.color} - Hair type: {user.hair.type} </p>
-
-                    <p>Height: {user.height} Weight: {user.weight}</p>
-
-
-                </div>
-
-            )
+                    <p>Height: {user.height} Weight: {user.weight}</p></div>)
             }
                 <div className='recipeComp'>
             {id && recipes.map(recipe => (recipe.userId === +id ? (<RecipeComponent key={recipe.id} recipe={recipe} />) : null))}</div>
-        </div></div>
+        </div>
     );
 };
 

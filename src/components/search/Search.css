@@ -1,11 +1,9 @@
 .box{
     display:flex;
-    /*flex-direction: column;*/
     justify-content: center;
     width: 100%;
     flex-direction: row;
     align-items: center;
-    /*height: 10vh;*/
 }
 .text{
     width:100%;
@@ -14,7 +12,6 @@
     color: darkblue;
 }
 .form{
-    /*margin-top: 20px;*/
     width: 50%;
     height: 5vh;
     display:flex;

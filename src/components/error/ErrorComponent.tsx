@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom";
-import './ErrorComponent.css'
 export const ErrorComponent = () => {
     return (
         <div>

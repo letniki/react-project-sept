@@ -20,13 +20,10 @@ export const Menu = () => {
                     <li><Link className='Link' to={'/auth/users'}>users</Link></li>
                     <li><Link className='Link' to={'/auth/recipes'}>recipes</Link></li>
 
-                    {user ? (<img className='img' src={JSON.parse(user).image} alt={JSON.parse(user).username}/>) : (
-                        <li><Link to={'/login'}>login</Link></li>)}
-                </ul>) : (
-                    <ul className='block'>
+                    {user ? (<img className='img' src={JSON.parse(user).image} alt={JSON.parse(user).username}/>) : (<li><Link to={'/login'}>login</Link></li>)}
+                </ul>) : (<ul className='block'>
                            <li className='Link'><Link className='Link' to={'/login'}>login</Link></li>
-                       </ul>
-                )
+                       </ul>)
             }
         </>
     );
