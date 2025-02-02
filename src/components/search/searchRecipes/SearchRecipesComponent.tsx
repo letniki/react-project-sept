@@ -20,8 +20,8 @@ export const SearchRecipesComponent = () => {
     }
     return (
         <>
-            <div className='text'>Please enter recipe id <b>(from 1 to 50)</b></div>
-            <div className='text'>Or part of the recipe name <b>(2 letters min)</b></div>
+            <div className='text'>If you want to search recipe please enter id <b>(from 1 to 50)</b></div>
+            <div className='text'>or part of the recipe name <b>(2 letters min)</b></div>
             <div className='box'>
                 <form className='form' onSubmit={handleSubmit(handler)}>
                     <input className='inp' type="text" {...register('query', { required: "Field cannot be empty" })}></input>

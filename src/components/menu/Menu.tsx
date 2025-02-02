@@ -22,11 +22,11 @@ export const Menu = () => {
 
                     {user ? (<img className='img' src={JSON.parse(user).image} alt={JSON.parse(user).username}/>) : (
                         <li><Link to={'/login'}>login</Link></li>)}
-                </ul>) : (<>
+                </ul>) : (
                     <ul className='block'>
                            <li className='Link'><Link className='Link' to={'/login'}>login</Link></li>
                        </ul>
-                </>)
+                )
             }
         </>
     );

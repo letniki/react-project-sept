@@ -12,7 +12,7 @@ export const RefreshComponent = () => {
             if(refreshToken){
                 dispatch(authSliceActions.refreshTokens(refreshToken));
             }
-        }, 30000);
+        }, 540000);
         return () => clearInterval(interval);
     }, [accessToken, refreshToken]);
     return (

@@ -20,8 +20,8 @@ export const SearchUsersComponent = () => {
     }
     return (
         <>
-            <div className='text'>If you want to search users Please enter id <b>(from 1 to 208)</b></div>
-            <div className='text'>Or part of first Name, last Name, email <b>(2 letters min)</b></div>
+            <div className='text'>If you want to search user please enter id <b>(from 1 to 208)</b></div>
+            <div className='text'>or part of first name, last name, email <b>(2 letters min)</b></div>
             <div className='box'>
                 <form className='form' onSubmit={handleSubmit(handler)}>
                     <input className='inp'
